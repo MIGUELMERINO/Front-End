@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-6">
+
+        <div class="mt-3">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped row-border hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Fecha de nacimiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employees">
+                        <td>{{employee.name}}</td>
+                        <td>{{employee.last_name}}</td>
+                        <td>{{employee.birthday | date: 'shortDate'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="col-6">
+        <div class="mt-3">
+            <h4>Nuevo</h4>
+            <form [formGroup]="employeeFrom" (ngSubmit)="createEmployeeView(employeeFrom.value)">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" maxlength="30" formControlName="name" class="form-control"
+                        placeholder="Nombre (s)">
+                    <div  *ngIf="employeeFrom.get('name').invalid">
+                        <small style="color: red;">El nombre es requerido.</small> 
+                    </div>
+                    <label for="lastname">Apellidos</label>
+                    <input type="text" id="lastname" maxlength="30" formControlName="last_name" class="form-control"
+                        placeholder="Apellidos">
+                        <div  *ngIf="employeeFrom.get('last_name').invalid">
+                            <small style="color: red;">El apellido es requerido.</small> 
+                        </div>
+                    <label for="date">Fecha de nacimiento</label>
+                    <input type="date" id="name" class="form-control" formControlName="birthday">
+                    <div  *ngIf="employeeFrom.get('birthday').invalid">
+                        <small style="color: red;">La fecha es requerido.</small> 
+                    </div>
+                    <button class="mt-3 btn btn-primary" [disabled]="employeeFrom.invalid">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
